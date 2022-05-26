@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('tools', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('name');
             $table->string('codeTool');
+            $table->foreignId('mark_id')->references('id')->on('marks')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('model_id')->references('id')->on('models')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('tool_status_id')->references('id')->on('tool_status')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('status');
             $table->timestamps();
         });

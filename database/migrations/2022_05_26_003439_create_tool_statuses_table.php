@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('marks', function (Blueprint $table) {
+        Schema::create('tool_status', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('codeMark');
+            $table->string('toolStatus');
             $table->boolean('status');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marks');
+        Schema::dropIfExists('tool_status');
     }
 };

@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('marks', function (Blueprint $table) {
+        Schema::create('tool_routes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('codeMark');
+            $table->text('title');
+            $table->text('description');
+            $table->string('operationType');
+            $table->text('finalResult');
+            $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('tool_id')->references('id')->on('tools')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('status');
             $table->timestamps();
         });
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marks');
+        Schema::dropIfExists('tool_routes');
     }
 };
