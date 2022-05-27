@@ -36,9 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        $table->dropForeign(['turn_id']);
-        $table->dropForeign(['office_id']);
-        $table->dropForeign(['sector_id']);
-        Schema::dropIfExists('turns');
+        Schema::dropIfExists('users');
     }
 };
