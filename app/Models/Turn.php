@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Turn extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+        'turn',
+        'codeTurn',
+        'status'
+    ];
 }
