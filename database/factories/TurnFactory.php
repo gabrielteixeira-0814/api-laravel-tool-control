@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Turn;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TurnFactory extends Factory
 {
+    protected $model = Turn::class;
     /**
      * Define the model's default state.
      *
