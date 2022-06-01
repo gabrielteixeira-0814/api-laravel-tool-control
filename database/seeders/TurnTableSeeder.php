@@ -15,6 +15,6 @@ class TurnTableSeeder extends Seeder
      */
     public function run()
     {
-        Turn::factory()->count(2)->create();
+        Turn::factory()->count(3)->create();
     }
 }

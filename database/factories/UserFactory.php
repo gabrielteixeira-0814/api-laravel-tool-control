@@ -2,9 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\Turn;
+use App\Models\Office;
+use App\Models\Sector;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -24,11 +27,11 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'cpf' => $this->faker->unique(),
-            'matricula' => $this->faker->unique(),
-            'matricula' => $this->faker->unique(),
-            'matricula' => $this->faker->unique(),
-            'matricula' => $this->faker->unique(),
+            'cpf' => $this->faker->text(10),
+            'matricula' => $this->faker->text(10),
+            'turn_id' => Turn::factory(),
+            'office_id' => Office::factory(),
+            'sector_id' => Sector::factory(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
