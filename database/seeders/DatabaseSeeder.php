@@ -22,9 +22,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(UserTableSeeder::class);
+
         $this->call(TurnTableSeeder::class);
         $this->call(OfficeTableSeeder::class);
         $this->call(SectorTableSeeder::class);
+
+        // Tools
+        $this->call(MarkTableSeeder::class);
         
     }
 }
