@@ -25,12 +25,12 @@ class DatabaseSeeder extends Seeder
         $this->call(TurnTableSeeder::class);
         $this->call(OfficeTableSeeder::class);
         $this->call(SectorTableSeeder::class);
-        $this->call(UserTableSeeder::class);
+        //$this->call(UserTableSeeder::class);
 
         // Tools
         $this->call(MarkTableSeeder::class);
         $this->call(ModelsTableSeeder::class);
-        $this->call(Tool_statusTableSeeder::class);
+       // $this->call(Tool_statusTableSeeder::class);
         
     }
 }
