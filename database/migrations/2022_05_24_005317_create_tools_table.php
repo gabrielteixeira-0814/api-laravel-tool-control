@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('codeTool');
             $table->foreignId('mark_id')->references('id')->on('marks')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('model_id')->references('id')->on('models')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('toolstatuses_id')->references('id')->on('toolstatuses')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('statustool_id')->references('id')->on('statustools')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('status');
             $table->timestamps();
         });

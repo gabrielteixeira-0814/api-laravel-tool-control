@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('toolstatuses', function (Blueprint $table) {
+        Schema::create('statustools', function (Blueprint $table) {
             $table->id();
             $table->string('toolStatus');
             $table->boolean('status');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('toolstatuses');
+        Schema::dropIfExists('statustools');
     }
 };
