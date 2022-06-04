@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Statustool extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'toolStatus',
+        'status'
+    ];
 }
