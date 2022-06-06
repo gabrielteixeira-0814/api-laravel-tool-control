@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Tool extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'codeTool',
+        'mark_id',
+        'model_id',
+        'statustool_id',
+        'status'
+    ];
 }

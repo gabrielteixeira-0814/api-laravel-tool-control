@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ToolRoute extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'operationType',
+        'finalResult',
+        'user_id',
+        'tool_id',
+        'status'
+    ];
 }
