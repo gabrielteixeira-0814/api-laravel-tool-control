@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Turn;
+use App\Repositories\TurnRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('App\Repositories\TurnRepositoryInterface', 'App\Repositories\TurnRepositoryEloquent');
+
+        $this->app->bind('App\Repositories\TurnRepositoryInterface', function(){
+            return new TurnRepositoryEloquent(new Turn());
+        });
     }
 
     /**
