@@ -26,13 +26,7 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::get('/', [TurnController::class, 'getList'])->name('getListTurns');
         Route::get('/{id}', [TurnController::class, 'get'])->name('getTurns');
         Route::post('/', [TurnController::class, 'store'])->name('postTurns');
+        Route::post('/{id}', [TurnController::class, 'update'])->name('putTurns');
+        Route::delete('/{id}', [TurnController::class, 'delete'])->name('deleteTurns');
     });
-});
-
-
-
-
-
-Route::get('/ola', function () {
-    return "Ola mundo!";
 });

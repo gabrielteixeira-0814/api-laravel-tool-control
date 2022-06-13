@@ -28,7 +28,16 @@ class TurnController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
-        return $this->service->store($data);
+        return $this->service->store($request);
+    }
+
+    public function update(Request $request, $id)
+    {
+        return $this->service->update($request, $id);
+    }
+
+    public function delete($id)
+    {
+        return $this->service->destroy($id);
     }
 }

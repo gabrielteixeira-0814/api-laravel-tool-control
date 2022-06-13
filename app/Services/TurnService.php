@@ -14,21 +14,22 @@ class TurnService
         $this->repo = $repo;
     }
 
-    public function store(array $data)
+    public function store($request)
     {
-        // $mensagens = [
-        //     'turn.required' => 'O nome do turno é obrigatório!',
-        //     'turn.min' => 'É necessário no mínimo 5 caracteres no nome do turno!',
-        //     'turn.max' => 'É necessário no Máximo 255 caracteres no nome do turno!',
+        $mensagens = [
+            'turn.required' => 'O nome do turno é obrigatório!',
+            'turn.min' => 'É necessário no mínimo 5 caracteres no nome do turno!',
+            'turn.max' => 'É necessário no Máximo 255 caracteres no nome do turno!',
 
-        //     'codeTurn.required' => 'O código do turno é obrigatório!',
-        //     'codeTurn.max' => 'É necessário no Máximo 100 caracteres no código!',
-        // ];
+            'codeTurn.required' => 'O código do turno é obrigatório!',
+            'codeTurn.min' => 'É necessário no mínimo 5 caracteres no nome do turno!',
+            'codeTurn.max' => 'É necessário no Máximo 100 caracteres no código!',
+        ];
 
-        // $validatedData = Validator::make($data, [
-        //     'turn' => 'required|string|min:5|max:255',
-        //     'codeTurn' => 'required|string|max:100',
-        // ], $mensagens);
+        $data = $request->validate([
+            'turn' => 'required|string|min:5|max:255',
+            'codeTurn' => 'required|string|min:5|max:100',
+        ], $mensagens);
 
         $data['status'] = 0;
 
@@ -45,8 +46,23 @@ class TurnService
         return $this->repo->get($id);
     }
 
-    public function update(array $data, $id)
+    public function update($request, $id)
     {
+        $mensagens = [
+            'turn.required' => 'O nome do turno é obrigatório!',
+            'turn.min' => 'É necessário no mínimo 5 caracteres no nome do turno!',
+            'turn.max' => 'É necessário no Máximo 255 caracteres no nome do turno!',
+
+            'codeTurn.required' => 'O código do turno é obrigatório!',
+            'codeTurn.min' => 'É necessário no mínimo 5 caracteres no nome do turno!',
+            'codeTurn.max' => 'É necessário no Máximo 100 caracteres no código!',
+        ];
+
+        $data = $request->validate([
+            'turn' => 'required|string|min:5|max:255',
+            'codeTurn' => 'required|string|min:5|max:100',
+        ], $mensagens);
+
         return $this->repo->update($data, $id);
     }
 
