@@ -20,4 +20,15 @@ class TurnController extends Controller
     {
         return $this->service->getList();
     }
+    
+    public function get($id)
+    {
+        return $this->service->get($id);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        return $this->service->store($data);
+    }
 }
