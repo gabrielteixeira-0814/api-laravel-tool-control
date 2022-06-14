@@ -22,7 +22,7 @@ class TurnService
             'turn.max' => 'É necessário no Máximo 255 caracteres no nome do turno!',
 
             'codeTurn.required' => 'O código do turno é obrigatório!',
-            'codeTurn.min' => 'É necessário no mínimo 5 caracteres no nome do turno!',
+            'codeTurn.min' => 'É necessário no mínimo 5 caracteres no código do turno!',
             'codeTurn.max' => 'É necessário no Máximo 100 caracteres no código!',
         ];
 
