@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TurnController;
 use App\Http\Controllers\Api\SectorController;
+use App\Http\Controllers\Api\OfficeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::post('/', [SectorController::class, 'store'])->name('postSector');
         Route::post('/{id}', [SectorController::class, 'update'])->name('putSector');
         Route::delete('/{id}', [SectorController::class, 'delete'])->name('deleteSector');
+    });
+
+    Route::prefix('office')->group(function () {
+        Route::get('/', [OfficeController::class, 'getList'])->name('getListOffice');
+        Route::get('/{id}', [OfficeController::class, 'get'])->name('getOffice');
+        Route::post('/', [OfficeController::class, 'store'])->name('postOffice');
+        Route::post('/{id}', [OfficeController::class, 'update'])->name('putOffice');
+        Route::delete('/{id}', [OfficeController::class, 'delete'])->name('deleteOffice');
     });
 });

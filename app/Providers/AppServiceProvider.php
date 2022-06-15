@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Turn;
 use App\Models\Sector;
+use App\Models\Office;
 use App\Repositories\TurnRepositoryEloquent;
 use App\Repositories\SectorRepositoryEloquent;
+use App\Repositories\OfficeRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,7 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         // Turn
         $this->app->bind('App\Repositories\TurnRepositoryInterface', 'App\Repositories\TurnRepositoryEloquent');
 
@@ -30,6 +31,13 @@ class AppServiceProvider extends ServiceProvider
 
          $this->app->bind('App\Repositories\SectorRepositoryInterface', function(){
              return new SectorRepositoryEloquent(new Sector());
+         });
+
+         // Office
+         $this->app->bind('App\Repositories\OfficeRepositoryInterface', 'App\Repositories\OfficeRepositoryEloquent');
+
+         $this->app->bind('App\Repositories\OfficeRepositoryInterface', function(){
+             return new OfficeRepositoryEloquent(new Office());
          });
     }
 
