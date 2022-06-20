@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Models\Turn;
 use App\Models\Sector;
 use App\Models\Office;
+use App\Repositories\UserRepositoryEloquent;
 use App\Repositories\TurnRepositoryEloquent;
 use App\Repositories\SectorRepositoryEloquent;
 use App\Repositories\OfficeRepositoryEloquent;
@@ -19,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
+        // User
+        $this->app->bind('App\Repositories\UserRepositoryInterface', 'App\Repositories\UserRepositoryEloquent');
+
+        $this->app->bind('App\Repositories\UserRepositoryInterface', function(){
+            return new UserRepositoryEloquent(new User());
+        });
+
         // Turn
         $this->app->bind('App\Repositories\TurnRepositoryInterface', 'App\Repositories\TurnRepositoryEloquent');
 

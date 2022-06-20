@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TurnController;
 use App\Http\Controllers\Api\SectorController;
 use App\Http\Controllers\Api\OfficeController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,5 +47,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::post('/', [OfficeController::class, 'store'])->name('postOffice');
         Route::post('/{id}', [OfficeController::class, 'update'])->name('putOffice');
         Route::delete('/{id}', [OfficeController::class, 'delete'])->name('deleteOffice');
+    });
+
+    Route::prefix('user')->group(function() {
+        Route::get('/', [UserController::class, 'getList'])->name('getListUser');
+        Route::get('/{id}', [UserController::class, 'get'])->name('getUser');
+        Route::post('/', [UserController::class, 'store'])->name('postUser');
+        Route::post('/{id}', [UserController::class, 'update'])->name('putUser');
+        Route::delete('/{id}', [UserController::class, 'delete'])->name('deleteUser');
     });
 });
