@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\SectorController;
 use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\MarkController;
-use App\Http\Controllers\Api\ModelsController;
+use App\Http\Controllers\Api\StatusToolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,5 +72,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::post('/', [ModelsController::class, 'store'])->name('postModels');
         Route::post('/{id}', [ModelsController::class, 'update'])->name('putModels');
         Route::delete('/{id}', [ModelsController::class, 'delete'])->name('deleteModels');
+    });
+
+    Route::prefix('statusTool')->group(function() {
+        Route::get('/', [StatusToolController::class, 'getList'])->name('getListStatusTool');
+        Route::get('/{id}', [StatusToolController::class, 'get'])->name('getStatusTool');
+        Route::post('/', [StatusToolController::class, 'store'])->name('postStatusTool');
+        Route::post('/{id}', [StatusToolController::class, 'update'])->name('putStatusTool');
+        Route::delete('/{id}', [StatusToolController::class, 'delete'])->name('deleteStatusTool');
     });
 });
