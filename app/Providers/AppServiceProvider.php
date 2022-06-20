@@ -6,10 +6,12 @@ use App\Models\User;
 use App\Models\Turn;
 use App\Models\Sector;
 use App\Models\Office;
+use App\Models\Mark;
 use App\Repositories\UserRepositoryEloquent;
 use App\Repositories\TurnRepositoryEloquent;
 use App\Repositories\SectorRepositoryEloquent;
 use App\Repositories\OfficeRepositoryEloquent;
+use App\Repositories\MarkRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -48,6 +50,13 @@ class AppServiceProvider extends ServiceProvider
 
          $this->app->bind('App\Repositories\OfficeRepositoryInterface', function(){
              return new OfficeRepositoryEloquent(new Office());
+         });
+
+         // Mark
+         $this->app->bind('App\Repositories\MarkRepositoryInterface', 'App\Repositories\MarkRepositoryEloquent');
+
+         $this->app->bind('App\Repositories\MarkRepositoryInterface', function(){
+             return new MarkRepositoryEloquent(new Mark());
          });
     }
 

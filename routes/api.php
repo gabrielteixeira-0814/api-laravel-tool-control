@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\TurnController;
 use App\Http\Controllers\Api\SectorController;
 use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\MarkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,6 @@ use App\Http\Controllers\Api\UserController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
 
 Route::namespace('Api')->name('api.')->group(function(){
 
@@ -55,5 +55,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::post('/', [UserController::class, 'store'])->name('postUser');
         Route::post('/{id}', [UserController::class, 'update'])->name('putUser');
         Route::delete('/{id}', [UserController::class, 'delete'])->name('deleteUser');
+    });
+
+    Route::prefix('mark')->group(function() {
+        Route::get('/', [MarkController::class, 'getList'])->name('getListMark');
+        Route::get('/{id}', [MarkController::class, 'get'])->name('getMark');
+        Route::post('/', [MarkController::class, 'store'])->name('postMark');
+        Route::post('/{id}', [MarkController::class, 'update'])->name('putMark');
+        Route::delete('/{id}', [MarkController::class, 'delete'])->name('deleteMark');
     });
 });
