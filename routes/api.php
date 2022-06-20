@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\SectorController;
 use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\MarkController;
+use App\Http\Controllers\Api\ModelsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,5 +64,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::post('/', [MarkController::class, 'store'])->name('postMark');
         Route::post('/{id}', [MarkController::class, 'update'])->name('putMark');
         Route::delete('/{id}', [MarkController::class, 'delete'])->name('deleteMark');
+    });
+
+    Route::prefix('models')->group(function() {
+        Route::get('/', [ModelsController::class, 'getList'])->name('getListModels');
+        Route::get('/{id}', [ModelsController::class, 'get'])->name('getModels');
+        Route::post('/', [ModelsController::class, 'store'])->name('postModels');
+        Route::post('/{id}', [ModelsController::class, 'update'])->name('putModels');
+        Route::delete('/{id}', [ModelsController::class, 'delete'])->name('deleteModels');
     });
 });
