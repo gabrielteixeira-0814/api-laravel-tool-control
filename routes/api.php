@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\MarkController;
 use App\Http\Controllers\Api\StatusToolController;
 use App\Http\Controllers\Api\ToolController;
+use App\Http\Controllers\Api\ToolRouteController;
 
 
 /*
@@ -90,5 +91,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::post('/', [ToolController::class, 'store'])->name('postTool');
         Route::post('/{id}', [ToolController::class, 'update'])->name('putTool');
         Route::delete('/{id}', [ToolController::class, 'delete'])->name('deleteTool');
+    });
+
+    Route::prefix('toolRoute')->group(function() {
+        Route::get('/', [ToolRouteController::class, 'getList'])->name('getListToolRoute');
+        Route::get('/{id}', [ToolRouteController::class, 'get'])->name('getToolRoute');
+        Route::post('/', [ToolRouteController::class, 'store'])->name('postToolRoute');
+        Route::post('/{id}', [ToolRouteController::class, 'update'])->name('putToolRoute');
+        Route::delete('/{id}', [ToolRouteController::class, 'delete'])->name('deleteToolRoute');
     });
 });

@@ -10,6 +10,7 @@ use App\Models\Mark;
 use App\Models\Models;
 use App\Models\Statustool;
 use App\Models\Tool; 
+use App\Models\ToolRoute; 
 use App\Repositories\UserRepositoryEloquent;
 use App\Repositories\TurnRepositoryEloquent;
 use App\Repositories\SectorRepositoryEloquent;
@@ -18,6 +19,7 @@ use App\Repositories\MarkRepositoryEloquent;
 use App\Repositories\ModelsRepositoryEloquent;
 use App\Repositories\StatusToolRepositoryEloquent;
 use App\Repositories\ToolRepositoryEloquent;
+use App\Repositories\ToolRouteRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -79,12 +81,19 @@ class AppServiceProvider extends ServiceProvider
              return new StatusToolRepositoryEloquent(new Statustool());
          });
 
-         // Status Tool
+         // Tool
          $this->app->bind('App\Repositories\ToolRepositoryInterface', 'App\Repositories\ToolRepositoryEloquent');
 
          $this->app->bind('App\Repositories\ToolRepositoryInterface', function(){
              return new ToolRepositoryEloquent(new Tool());
          });
+
+          // Tool Route
+          $this->app->bind('App\Repositories\ToolRouteRepositoryInterface', 'App\Repositories\ToolRouteRepositoryEloquent');
+
+          $this->app->bind('App\Repositories\ToolRouteRepositoryInterface', function(){
+              return new ToolRouteRepositoryEloquent(new ToolRoute());
+          });
     }
 
     /**
