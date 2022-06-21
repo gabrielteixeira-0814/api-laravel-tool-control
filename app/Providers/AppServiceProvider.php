@@ -8,7 +8,8 @@ use App\Models\Sector;
 use App\Models\Office;
 use App\Models\Mark;
 use App\Models\Models;
-use App\Models\Statustool; 
+use App\Models\Statustool;
+use App\Models\Tool; 
 use App\Repositories\UserRepositoryEloquent;
 use App\Repositories\TurnRepositoryEloquent;
 use App\Repositories\SectorRepositoryEloquent;
@@ -16,6 +17,7 @@ use App\Repositories\OfficeRepositoryEloquent;
 use App\Repositories\MarkRepositoryEloquent;
 use App\Repositories\ModelsRepositoryEloquent;
 use App\Repositories\StatusToolRepositoryEloquent;
+use App\Repositories\ToolRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -70,11 +72,18 @@ class AppServiceProvider extends ServiceProvider
              return new ModelsRepositoryEloquent(new Models());
          });
 
-         // Status Tool
+         // Status StatusTool
          $this->app->bind('App\Repositories\StatusToolRepositoryInterface', 'App\Repositories\StatusToolRepositoryEloquent');
 
          $this->app->bind('App\Repositories\StatusToolRepositoryInterface', function(){
              return new StatusToolRepositoryEloquent(new Statustool());
+         });
+
+         // Status Tool
+         $this->app->bind('App\Repositories\ToolRepositoryInterface', 'App\Repositories\ToolRepositoryEloquent');
+
+         $this->app->bind('App\Repositories\ToolRepositoryInterface', function(){
+             return new ToolRepositoryEloquent(new Tool());
          });
     }
 

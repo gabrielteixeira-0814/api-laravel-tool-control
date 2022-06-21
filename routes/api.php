@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\OfficeController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\MarkController;
 use App\Http\Controllers\Api\StatusToolController;
+use App\Http\Controllers\Api\ToolController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -80,5 +82,13 @@ Route::namespace('Api')->name('api.')->group(function(){
         Route::post('/', [StatusToolController::class, 'store'])->name('postStatusTool');
         Route::post('/{id}', [StatusToolController::class, 'update'])->name('putStatusTool');
         Route::delete('/{id}', [StatusToolController::class, 'delete'])->name('deleteStatusTool');
+    });
+
+    Route::prefix('tool')->group(function() {
+        Route::get('/', [ToolController::class, 'getList'])->name('getListTool');
+        Route::get('/{id}', [ToolController::class, 'get'])->name('getTool');
+        Route::post('/', [ToolController::class, 'store'])->name('postTool');
+        Route::post('/{id}', [ToolController::class, 'update'])->name('putTool');
+        Route::delete('/{id}', [ToolController::class, 'delete'])->name('deleteTool');
     });
 });
