@@ -48,8 +48,8 @@ class UserService
         $data = $request->validate([
             'name' => 'required|string|min:5|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:5|max:10|confirmed',
-            'password_confirmation' => 'min:5|max:10',
+            'password' => 'required|string|min:5|max:10|confirmed',
+            'password_confirmation' => 'required|string|min:5|max:10',
             'cpf' => 'required|string|min:5|max:15',
             'matricula' => 'required|string|min:5|max:25',
             'turn_id' => 'required',
