@@ -52,7 +52,7 @@ class UserService
             'password_confirmation' => 'required|string|min:5|max:10',
             'cpf' => 'required|string|min:5|max:15',
             'matricula' => 'required|string|min:5|max:25',
-            'image' => '',
+            'image' => 'image',
             'turn_id' => 'required',
             'office_id' => 'required',
             'sector_id' => 'required',

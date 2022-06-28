@@ -16,6 +16,7 @@ class ToolService
 
     public function store($request)
     {
+
         $mensagens = [
             'name.required' => 'O nome da ferramenta é obrigatório!',
             'name.min' => 'É necessário no mínimo 5 caracteres no nome da ferramenta!',
@@ -35,10 +36,20 @@ class ToolService
         $data = $request->validate([
             'name' => 'required|string|min:5|max:255',
             'codeTool' => 'required|string|min:5|max:15',
+            'image' => 'image',
             'mark_id' => 'required',
             'model_id' => 'required',
             'statustool_id' => 'required',
         ], $mensagens);
+
+        // Upload de imagem
+        $file = $data['image'];
+
+        if($file) {
+            $nameFile = $file->getClientOriginalName();
+            $file = $file->storeAs('tools', $nameFile);
+            $data['image'] = $file;
+        }
 
         $data['status'] = 0;
 

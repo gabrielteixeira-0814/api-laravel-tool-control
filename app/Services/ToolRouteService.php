@@ -37,12 +37,22 @@ class ToolRouteService
             'title' => 'required|string|min:5|max:255',
             'operationType' => 'required|string|min:5|max:100',
             'finalResult' => 'required',
+            'image' => 'image',
             'user_id' => 'required',
             'tool_id' => 'required',
         ], $mensagens);
 
         if(!$request['description']){
             $data['description'] = '';
+        }
+
+        // Upload de imagem
+        $file = $data['image'];
+
+        if($file) {
+            $nameFile = $file->getClientOriginalName();
+            $file = $file->storeAs('toolRoute', $nameFile);
+            $data['image'] = $file;
         }
 
         $data['status'] = 0;
@@ -83,6 +93,7 @@ class ToolRouteService
             'title' => 'required|string|min:5|max:255',
             'operationType' => 'required|string|min:5|max:100',
             'finalResult' => 'required',
+            'image' => 'image',
             'user_id' => 'required',
             'tool_id' => 'required',
         ], $mensagens);
@@ -91,8 +102,17 @@ class ToolRouteService
             $data['description'] = '';
         }
 
-        $data['status'] = 0;
 
+        // Upload de imagem
+        $file = $data['image'];
+
+        if($file) {
+            $nameFile = $file->getClientOriginalName();
+            $file = $file->storeAs('toolRoute', $nameFile);
+            $data['image'] = $file;
+        }
+
+        $data['status'] = 0;
 
         return $this->repo->update($data, $id);
     }

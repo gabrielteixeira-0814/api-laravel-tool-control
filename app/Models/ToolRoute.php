@@ -14,6 +14,7 @@ class ToolRoute extends Model
         'description',
         'operationType',
         'finalResult',
+        'image',
         'user_id',
         'tool_id',
         'status'
