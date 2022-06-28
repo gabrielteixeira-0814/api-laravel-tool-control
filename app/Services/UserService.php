@@ -58,6 +58,15 @@ class UserService
             'sector_id' => 'required',
         ], $mensagens);
 
+         
+        $file = $data['image'];
+
+        if($file) {
+            $nameFile = $file->getClientOriginalName();
+            $file = $file->storeAs('users', $nameFile);
+            $data['image'] = $file;
+        }
+
         return $this->repo->store($data);
     }
 
