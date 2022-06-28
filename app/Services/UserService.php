@@ -67,7 +67,7 @@ class UserService
             $data['image'] = $file;
         }
 
-        return $this->repo->store($data);
+        return $this->repo->store($data); ///
     }
 
     public function getList()
