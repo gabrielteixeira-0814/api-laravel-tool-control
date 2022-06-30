@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Repositories\UserRepositoryInterface;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 
 
 class UserService
@@ -123,6 +124,20 @@ class UserService
             'office_id' => 'required',
             'sector_id' => 'required',
         ], $mensagens);
+
+        // Upload de imagem
+        $file = $data['image'];
+
+        if($file) {
+            $nameFile = $file->getClientOriginalName();
+            
+            // Encontrar arquivo antigo para deletar
+            $oldFile = $this->repo->get($id); // encontrar dados do usuário
+            Storage::disk('public')->delete("$oldFile->image");
+
+            $file = $file->storeAs('users', $nameFile);
+            $data['image'] = $file;
+        }
 
         return $this->repo->update($data, $id);
     }

@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Repositories\ToolRouteRepositoryInterface;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 
 
 class ToolRouteService
@@ -102,12 +103,16 @@ class ToolRouteService
             $data['description'] = '';
         }
 
-
         // Upload de imagem
         $file = $data['image'];
 
         if($file) {
             $nameFile = $file->getClientOriginalName();
+            
+            // Encontrar arquivo antigo para deletar
+            $oldFile = $this->repo->get($id); // encontrar dados da rota
+            Storage::disk('public')->delete("$oldFile->image");
+
             $file = $file->storeAs('toolRoute', $nameFile);
             $data['image'] = $file;
         }
