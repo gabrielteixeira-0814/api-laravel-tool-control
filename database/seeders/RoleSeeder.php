@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use Spatie\Permission\Models\Role;
 
-class UserTableSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,11 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(1)->create();
-        //User::factory()->count(1)->create()->roles()->attach(2);
+        foreach (['Admin', 'User'] as $name)
+        {
+            Role::create([
+                'name' => $name
+            ]);
+        }
     }
 }
