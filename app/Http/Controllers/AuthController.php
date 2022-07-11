@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -17,10 +18,18 @@ class AuthController extends Controller
             'password_confirmation' => 'required|string|min:5|max:10',
             'cpf' => 'required|string|min:5|max:15',
             'matricula' => 'required|string|min:5|max:25',
+            'image' => 'image',
             'turn_id' => 'required',
             'office_id' => 'required',
             'sector_id' => 'required',
         ]);
+
+        $file = $request->image;
+
+        if($file) {
+            $nameFile = $file->getClientOriginalName();
+            $file = $file->storeAs('users', $nameFile);
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -28,6 +37,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
             'cpf' => $request->cpf,
             'matricula' => $request->matricula,
+            'image' => $file ,
             'turn_id' => $request->turn_id,
             'office_id' => $request->office_id,
             'sector_id' => $request->sector_id,

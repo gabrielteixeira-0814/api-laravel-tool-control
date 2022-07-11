@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Spatie\Permission\Models\Permission;
+
 
 class UserTableSeeder extends Seeder
 {
@@ -15,7 +17,20 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->count(1)->create();
+        //User::factory()->count(1)->create()->roles()->attach(1);
         //User::factory()->count(1)->create()->roles()->attach(2);
+       
+        User::create([
+            'name' => 'gabriel',
+            'email' => "wmann@example.net",
+            'cpf' => '1265416',
+            'matricula' => '154564',
+            'image' => 'image.png',
+            'turn_id' => 1,
+            'office_id' => 1,
+            'sector_id' => 1,
+            'password' => '123456', // password
+            'remember_token' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ])->roles()->attach(1);
     }
 }

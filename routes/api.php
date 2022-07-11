@@ -65,7 +65,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('user')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum', 'role:Admin']], function(){
             Route::get('/', [UserController::class, 'getList'])->name('getListUser');
             Route::get('/{id}', [UserController::class, 'get'])->name('getUser');
             Route::post('/', [UserController::class, 'store'])->name('postUser');
