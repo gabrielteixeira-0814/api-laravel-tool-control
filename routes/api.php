@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\StatusToolController;
 use App\Http\Controllers\Api\ToolController;
 use App\Http\Controllers\Api\ToolRouteController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
 
 
 /*
@@ -31,6 +32,10 @@ use App\Http\Controllers\AuthController;
 Route::post('/register', [AuthController::class, 'register'])->name('register_users'); 
 Route::post('/login', [AuthController::class, 'login'])->name('login_users');
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout_users');
+
+
+Route::post('/role', [RoleController::class, 'store'])->name('create_role');
+
 
 Route::namespace('Api')->name('api.')->group(function(){
 
