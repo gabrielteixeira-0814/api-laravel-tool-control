@@ -40,22 +40,12 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
     
-        $list = [];
-
-        // Acrescentar as permissões para a função criada acima
-        foreach (["1", "2"] as $value)
-        {
-            $list[] = $value;
-        }
-
-        return $request["permission"];
-
         // Criar uma função
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($list);
+
+         // Acrescentar as permissões para a função criada acima
+        $role->syncPermissions($request["permission"]); // EX: $request[1,2]
         
-        
-    
         return 'Role created successfully';
     }
 
@@ -101,6 +91,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request, [
             'name' => 'required',
             'permission' => 'required',
@@ -112,8 +103,7 @@ class RoleController extends Controller
     
         $role->syncPermissions($request->input('permission'));
     
-        return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+        return 'Role updated successfully';
     }
 
     /**
@@ -124,8 +114,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        // DB::table("roles")->where('id',$id)->delete();
-        // return redirect()->route('roles.index')
-        //                 ->with('success','Role deleted successfully');
+        DB::table("roles")->where('id',$id)->delete();
+        return ('Role deleted successfully');
     }
 }
