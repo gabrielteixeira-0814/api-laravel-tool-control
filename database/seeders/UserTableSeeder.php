@@ -32,7 +32,7 @@ class UserTableSeeder extends Seeder
             'sector_id' => 1,
             'password' => bcrypt('123456'), // password
             'remember_token' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-        ])->roles()->attach(1);
+        ])->roles()->attach([1,2]); // ->roles()->attach([1,2]); Insere as funções
 
         User::create([
             'name' => 'Daniela Prado',
@@ -46,5 +46,18 @@ class UserTableSeeder extends Seeder
             'password' => bcrypt('123456'), // password
             'remember_token' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         ])->roles()->attach(2);
+
+        User::create([
+            'name' => 'Josi Teixeira',
+            'email' => "josi@example.net",
+            'cpf' => '126541683',
+            'matricula' => '154564453',
+            'image' => 'image.png',
+            'turn_id' => 1,
+            'office_id' => 1,
+            'sector_id' => 1,
+            'password' => bcrypt('123456'), // password
+            'remember_token' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+        ])->roles()->attach(3);
     }
 }

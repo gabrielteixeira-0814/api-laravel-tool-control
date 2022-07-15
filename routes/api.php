@@ -43,15 +43,25 @@ Route::namespace('Api')->name('api.')->group(function(){
 
     // Route de Roles
     Route::prefix('roles')->group(function () {
-        Route::group(['middleware' => ['role:Admin','auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin']], function(){
             Route::post('/', [RoleController::class, 'store'])->name('create_role');
             Route::post('/{id}', [RoleController::class, 'update'])->name('update_role');
             Route::delete('/delete/{id}', [RoleController::class, 'destroy'])->name('delete_role');
         });
     });
 
+    // Route de Permission
+    Route::prefix('permissions')->group(function () {
+        Route::group(['middleware' => ['auth:sanctum','role:Admin']], function(){
+            Route::post('/', [PermissionController::class, 'store'])->name('create_permission');
+            Route::post('/{id}', [PermissionController::class, 'update'])->name('update_permission');
+            Route::delete('/delete/{id}', [PermissionController::class, 'destroy'])->name('delete_permission');
+        });
+    });
+
+
     Route::prefix('turns')->group(function () {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [TurnController::class, 'getList'])->name('getListTurns');
             Route::get('/{id}', [TurnController::class, 'get'])->name('getTurns');
             Route::post('/', [TurnController::class, 'store'])->name('postTurns');
@@ -61,7 +71,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('sector')->group(function () {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [SectorController::class, 'getList'])->name('getListSector');
             Route::get('/{id}', [SectorController::class, 'get'])->name('getSector');
             Route::post('/', [SectorController::class, 'store'])->name('postSector');
@@ -71,7 +81,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('office')->group(function () {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [OfficeController::class, 'getList'])->name('getListOffice');
             Route::get('/{id}', [OfficeController::class, 'get'])->name('getOffice');
             Route::post('/', [OfficeController::class, 'store'])->name('postOffice');
@@ -81,7 +91,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('user')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum', 'role:Admin']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin']], function(){
             Route::get('/', [UserController::class, 'getList'])->name('getListUser');
             Route::get('/{id}', [UserController::class, 'get'])->name('getUser');
             Route::post('/', [UserController::class, 'store'])->name('postUser');
@@ -91,7 +101,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('mark')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [MarkController::class, 'getList'])->name('getListMark');
             Route::get('/{id}', [MarkController::class, 'get'])->name('getMark');
             Route::post('/', [MarkController::class, 'store'])->name('postMark');
@@ -101,7 +111,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('models')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [ModelsController::class, 'getList'])->name('getListModels');
             Route::get('/{id}', [ModelsController::class, 'get'])->name('getModels');
             Route::post('/', [ModelsController::class, 'store'])->name('postModels');
@@ -111,7 +121,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('statusTool')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [StatusToolController::class, 'getList'])->name('getListStatusTool');
             Route::get('/{id}', [StatusToolController::class, 'get'])->name('getStatusTool');
             Route::post('/', [StatusToolController::class, 'store'])->name('postStatusTool');
@@ -121,7 +131,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('tool')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [ToolController::class, 'getList'])->name('getListTool');
             Route::get('/{id}', [ToolController::class, 'get'])->name('getTool');
             Route::post('/', [ToolController::class, 'store'])->name('postTool');
@@ -131,7 +141,7 @@ Route::namespace('Api')->name('api.')->group(function(){
     });
 
     Route::prefix('toolRoute')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
             Route::get('/', [ToolRouteController::class, 'getList'])->name('getListToolRoute');
             Route::get('/{id}', [ToolRouteController::class, 'get'])->name('getToolRoute');
             Route::post('/', [ToolRouteController::class, 'store'])->name('postToolRoute');

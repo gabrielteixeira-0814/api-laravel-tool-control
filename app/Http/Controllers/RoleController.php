@@ -100,6 +100,9 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
+
+        // Acrescentar as permissões para a função criada acima
+        $role->syncPermissions($request["permission"]); // EX: $request[1,2]
     
         return 'Função editada com sucesso!';
     }
