@@ -42,7 +42,7 @@ Route::namespace('Api')->name('api.')->group(function(){
 
     // Route de Roles
     Route::prefix('roles')->group(function () {
-        Route::group(['middleware' => ['auth:sanctum']], function(){
+        Route::group(['middleware' => ['role:Admin','auth:sanctum']], function(){
             Route::post('/', [RoleController::class, 'store'])->name('create_role');
             Route::post('/{id}', [RoleController::class, 'update'])->name('update_role');
             Route::delete('/delete/{id}', [RoleController::class, 'destroy'])->name('delete_role');

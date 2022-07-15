@@ -41,7 +41,7 @@ class RoleController extends Controller
         ]);
     
         // Criar uma função
-        $role = Role::create(['name' => $request->input('name')]);
+        $role = Role::create(['guard_name' => 'web', 'name' => $request->input('name')]);
 
          // Acrescentar as permissões para a função criada acima
         $role->syncPermissions($request["permission"]); // EX: $request[1,2]
