@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\ToolController;
 use App\Http\Controllers\Api\ToolRouteController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 
 /*
@@ -33,9 +34,9 @@ Route::post('/register', [AuthController::class, 'register'])->name('register_us
 Route::post('/login', [AuthController::class, 'login'])->name('login_users');
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout_users');
 
-// Route::post('roles/', [RoleController::class, 'store'])->name('create_role');
-// Route::post('roles/{id}', [RoleController::class, 'update'])->name('update_role');
-// Route::delete('roles/delete/{id}', [RoleController::class, 'destroy'])->name('delete_role');
+Route::post('permission/', [PermissionController::class, 'store'])->name('create_permission');
+Route::post('permission/{id}', [PermissionController::class, 'update'])->name('update_permission');
+Route::delete('permission/delete/{id}', [PermissionController::class, 'destroy'])->name('delete_permission');
 
 
 Route::namespace('Api')->name('api.')->group(function(){

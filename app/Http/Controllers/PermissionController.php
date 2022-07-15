@@ -7,13 +7,11 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     public function index(Request $request)
     {
-        // $roles = Role::orderBy('id','DESC')->paginate(5);
-        // return view('roles.index',compact('roles'))
-        //     ->with('i', ($request->input('page', 1) - 1) * 5);
+        //
     }
 
      /**
@@ -23,8 +21,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        // $permission = Permission::get();
-        // return view('roles.create',compact('permission'));
+        //
     }
 
      /**
@@ -36,17 +33,13 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            'name' => 'required|unique:permissions,name'
         ]);
-    
-        // Criar uma função
-        $role = Role::create(['guard_name' => 'web', 'name' => $request->input('name')]);
 
-         // Acrescentar as permissões para a função criada acima
-        $role->syncPermissions($request["permission"]); // EX: $request[1,2]
-        
-        return 'Função criada com sucesso!';
+        // Criar uma permissão
+        $permission = Permission::create(['guard_name' => 'web', 'name' => $request->input('name')]);
+
+        return 'Permissão criada com sucesso!';
     }
 
     /**
@@ -57,12 +50,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        // $role = Role::find($id);
-        // $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-        //     ->where("role_has_permissions.role_id",$id)
-        //     ->get();
-    
-        // return view('roles.show',compact('role','rolePermissions'));
+        //
     }
 
      /**
@@ -73,13 +61,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        // $role = Role::find($id);
-        // $permission = Permission::get();
-        // $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-        //     ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-        //     ->all();
-    
-        // return view('roles.edit',compact('role','permission','rolePermissions'));
+        //
     }
 
      /**
@@ -93,14 +75,13 @@ class RoleController extends Controller
     {
 
         $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'required',
+            'name' => 'required'
         ]);
     
-        $role = Role::find($id);
+        $role = Permission::find($id);
         $role->name = $request->input('name');
         $role->save();
-    
+
         return 'Função editada com sucesso!';
     }
 
@@ -112,7 +93,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("roles")->where('id',$id)->delete();
+        DB::table("permissions")->where('id',$id)->delete();
         return ('Função deletada com sucesso!');
     }
 }
