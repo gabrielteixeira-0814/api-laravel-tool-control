@@ -35,8 +35,8 @@ class UserTest extends TestCase
 
        //dd($arrayCompared);
 
-        // Teste de comparação de quantidade de array que estiver errado entre $expected e $user
-        // A comparação entre os dois tem que ser 0 ou seja um array vazio ex: []
+       // Teste de comparação de quantidade de array que estiver errado entre $expected e $user
+       // A comparação entre os dois tem que ser 0 ou seja um array vazio ex: []
         $this->assertEquals(0, count($arrayCompared));
     }
 }
