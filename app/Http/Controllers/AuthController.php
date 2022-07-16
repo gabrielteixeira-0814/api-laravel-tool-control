@@ -67,6 +67,7 @@ class AuthController extends Controller
         // validade usuario e checa o password
         if(!$user || !Hash::check($request->password, $user->password)){
 
+            return route('api/login');
             return response([
                 'message' => 'Credenciais invalidas'
             ], 401);
