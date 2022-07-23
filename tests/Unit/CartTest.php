@@ -15,23 +15,23 @@ class CartTest extends TestCase
      /**
       * @test
       */
-    // public function shouldReturnCorrectCartTotal()
-    // {
-    //    // Arranjar
-    //    $lista = [0,3,5];
-    //    $soma = 0;
+    public function shouldReturnCorrectCartTotal()
+    {
+       // Arranjar
+       $lista = [0,3,5];
+       $soma = 0;
 
 
-    //     // Agir
-    //    foreach ($lista as $value) {
-    //         $soma = $soma + $value;
-    //    }
+        // Agir
+       foreach ($lista as $value) {
+            $soma = $soma + $value;
+       }
 
-    //     // Afirmar
-    //     $this->assertEquals(8, $soma);  // Compara o 8 com o total da variavel
+        // Afirmar
+        $this->assertEquals(8, $soma);  // Compara o 8 com o total da variavel
 
-    //     //$this->assertTrue(true);
-    // }
+        //$this->assertTrue(true);
+    }
 
     public function shouldReturnZeroWhenArrayEmpty()
     {
