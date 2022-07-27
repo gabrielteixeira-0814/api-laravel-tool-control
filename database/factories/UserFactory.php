@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'cpf' => $this->faker->text(10),
             'matricula' => $this->faker->text(10),
-            'image' => $this->faker->name(10),
+            //'image' => $this->faker->name(10),
             'turn_id' => Turn::factory(),
             'office_id' => Office::factory(),
             'sector_id' => Sector::factory(),

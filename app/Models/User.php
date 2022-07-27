@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password',
         'cpf',
         'matricula',
-        'image',
+        // 'image',
         'turn_id',
         'office_id',
         'sector_id'
