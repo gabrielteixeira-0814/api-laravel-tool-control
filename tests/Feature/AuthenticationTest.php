@@ -35,4 +35,65 @@ class AuthenticationTest extends TestCase
                 ]
             ]);
     }
+
+
+    public function testRepeatPassword()
+    {
+        $userData = [
+            "name" => "John Doe",
+            "email" => "doe@example.com",
+            "password" => "demo12345",
+            'cpf' => '23132151525',
+            'matricula' => '655616515151',
+            'turn_id' => 1,
+            'office_id' => 1,
+            'sector_id' => 1,
+        ];
+
+        $this->json('POST', 'api/register', $userData, ['Accept' => 'application/json'])
+            ->assertStatus(422)
+            ->assertJson([
+                "message" => "The password confirmation does not match. (and 1 more error)",
+                "errors" => [
+                    "password" => ["The password confirmation does not match."],
+                    "password_confirmation" => ["The password confirmation field is required."]
+                ]
+            ]);
+    }
+
+
+    public function testSuccessfulRegistration()
+    {
+        $userData = [
+            "name" => "John Doe",
+            "email" => "doe@example.com",
+            "password" => "demo12345",
+            "password_confirmation" => "demo12345",
+            'cpf' => '23132151525',
+            'matricula' => '655616515151',
+            'turn_id' => 1,
+            'office_id' => 1,
+            'sector_id' => 1,
+        ];
+
+        $this->json('POST', 'api/register', $userData, ['Accept' => 'application/json'])
+            ->assertStatus(201)
+            ->assertJsonStructure([
+                "user" => [
+                    'id',
+                    'name',
+                    'email',
+                    'password',
+                    'cpf',
+                    'matricula',
+                    'turn_id',
+                    'office_id',
+                    'sector_id',
+                    'created_at',
+                    'updated_at',
+                ],
+                "access_token",
+                "message"
+            ]);
+    }
 }
