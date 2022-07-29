@@ -12,7 +12,7 @@ class Tool extends Model
     protected $fillable = [
         'name',
         'codeTool',
-        'image',
+        //'image',
         'mark_id',
         'model_id',
         'statustool_id',

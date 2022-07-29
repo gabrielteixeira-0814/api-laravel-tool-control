@@ -21,17 +21,17 @@ class AuthenticationTest extends TestCase
         $this->json('POST', 'api/register', ['Accept' => 'application/json'])
             ->assertStatus(422)
             ->assertJson([
-                "message" => "The given data was invalid.",
+                "message" => "The name field is required. (and 8 more errors)",
                 "errors" => [
                     "name" => ["The name field is required."],
                     "email" => ["The email field is required."],
                     "password" => ["The password field is required."],
+                    "password_confirmation" => ["The password confirmation field is required."],
                     "cpf" => ["The cpf field is required."],
-                    "image" => ["The image field is required."],
                     "matricula" => ["The matricula field is required."],
-                    "turn_id" => ["The turn_id field is required."],
-                    "office_id" => ["The office_id field is required."],
-                    "sector_id" => ["The sector_id field is required."],
+                    "turn_id" => ["The turn id field is required."],
+                    "office_id" => ["The office id field is required."],
+                    "sector_id" => ["The sector id field is required."],
                 ]
             ]);
     }

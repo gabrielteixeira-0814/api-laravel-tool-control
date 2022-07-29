@@ -24,12 +24,12 @@ class AuthController extends Controller
             'sector_id' => 'required',
         ]);
 
-        $file = $request->image;
+        // $file = $request->image;
 
-        if($file) {
-            $nameFile = $file->getClientOriginalName();
-            $file = $file->storeAs('users', $nameFile);
-        }
+        // if($file) {
+        //     $nameFile = $file->getClientOriginalName();
+        //     $file = $file->storeAs('users', $nameFile);
+        // }
 
         $user = User::create([
             'name' => $request->name,
