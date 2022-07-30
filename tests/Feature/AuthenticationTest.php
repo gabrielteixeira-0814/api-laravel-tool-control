@@ -69,11 +69,11 @@ class AuthenticationTest extends TestCase
             "email" => "doe@example.com",
             "password" => "demo12345",
             "password_confirmation" => "demo12345",
-            'cpf' => '23132151525',
-            'matricula' => '655616515151',
+            'cpf' => '123456',
+            'matricula' => '1234564',
             'turn_id' => 1,
-            'office_id' => 1,
-            'sector_id' => 1,
+            'office_id' => 2,
+            'sector_id' => 3,
         ];
 
         $this->json('POST', 'api/register', $userData, ['Accept' => 'application/json'])

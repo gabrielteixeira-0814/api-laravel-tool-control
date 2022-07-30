@@ -22,7 +22,7 @@ class ToolFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'codeTool' => $this->faker->text(10),
-            'image' => $this->faker->name(10),
+            //'image' => $this->faker->name(10),
             'mark_id' => Mark::factory(),
             'model_id' => Models::factory(),
             'statustool_id' => Statustool::factory(),

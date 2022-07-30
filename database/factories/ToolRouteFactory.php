@@ -23,7 +23,7 @@ class ToolRouteFactory extends Factory
             'description' => $this->faker->text(100),
             'operationType' => $this->faker->name(),
             'finalResult' => $this->faker->text(100),
-            'image' => $this->faker->name(10),
+            //'image' => $this->faker->name(10),
             'user_id' => User::factory(),
             'tool_id' => Tool::factory(),
             'status' => $this->faker->boolean()
