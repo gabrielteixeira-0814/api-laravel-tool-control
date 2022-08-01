@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 use App\User;
 use Tests\TestCase;
@@ -16,7 +18,36 @@ class AuthenticationTest extends TestCase
      *
      * @return void
      */
-    public function testRequiredFieldsForRegistration()
+    
+    
+    
+    public function testIndexReturnsDataInValidFormat() {
+    
+        $this->json('GET', 'api/user/')
+             ->assertStatus(Response::HTTP_OK)
+             ->assertJsonStructure(
+                 [
+                    
+                         '*' => [
+                             'id',
+                             'name',
+                             'email',
+                             'cpf',
+                             'email_verified_at',
+                             'matricula',
+                             'turn_id',
+                             'office_id',
+                             'sector_id',
+                             'created_at',
+                             'updated_at',
+                         ]
+                     
+                 ]
+             );
+      }
+    
+    
+     public function testRequiredFieldsForRegistration()
     {
         $this->json('POST', 'api/register', ['Accept' => 'application/json'])
             ->assertStatus(422)
@@ -65,35 +96,85 @@ class AuthenticationTest extends TestCase
     public function testSuccessfulRegistration()
     {
         $userData = [
-            "name" => "John Doe",
+            "name" => "John Doeaaa",
             "email" => "doe@example.com",
             "password" => "demo12345",
             "password_confirmation" => "demo12345",
-            'cpf' => '123456',
-            'matricula' => '1234564',
-            'turn_id' => 1,
-            'office_id' => 2,
-            'sector_id' => 3,
+            "cpf" => "12345657357",
+            "matricula" => "1234564387387",
+            "turn_id" => 1,
+            "office_id" => 1,
+            "sector_id" => 1,
+    ];
+            
+
+        //dd($userData);
+
+        $this->json('POST', 'api/user', $userData)
+            ->assertStatus(Response::HTTP_CREATED)
+            ->assertJsonStructure(
+                [
+                    'user' => [
+                        'name',
+                        'email',
+                        'password',
+                        'cpf',
+                        'matricula',
+                        'turn_id',
+                        'office_id',
+                        'sector_id',
+                        'created_at',
+                        'updated_at',
+                    ]
+                    //,
+                    // "access_token",
+                    // "message"
+                ]);
+    }
+
+    
+    // public function testSuccessfulRegistrationTurn()
+    // {
+    //     $turnData = [
+    //         "turn" => "primeiroasdsaa",
+    //         "codeTurn" => "sadasd651"
+    // ];
+            
+
+    //     //dd($turnData);
+
+    //     $this->json('POST', 'api/turns', $turnData)
+    //         ->assertStatus(Response::HTTP_CREATED)
+    //         ->assertJsonStructure(
+    //             [
+    //                 'turn',
+    //                 'codeTurn',
+    //                 'status',
+    //                 'created_at',
+    //                 'updated_at',
+    //             ]);
+    // }
+
+
+
+    // Espera o retorno do json quando criar um turno
+    public function test_making_an_api_request()
+    {
+
+        $turnData = [
+            "turn" => "primeiroasdsaa",
+            "codeTurn" => "sadasd651"
         ];
 
-        $this->json('POST', 'api/register', $userData, ['Accept' => 'application/json'])
+        $response = $this->postJson('/api/turns', $turnData);
+ 
+        $response
             ->assertStatus(201)
-            ->assertJsonStructure([
-                "user" => [
-                    'id',
-                    'name',
-                    'email',
-                    'password',
-                    'cpf',
-                    'matricula',
-                    'turn_id',
-                    'office_id',
-                    'sector_id',
-                    'created_at',
-                    'updated_at',
-                ],
-                "access_token",
-                "message"
+            ->assertJson([
+                "turn" => "primeiroasdsaa",
+                "codeTurn" => "sadasd651",
+                "status" => 0,
             ]);
     }
+
 }

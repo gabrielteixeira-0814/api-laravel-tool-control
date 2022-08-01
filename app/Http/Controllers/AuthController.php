@@ -44,14 +44,15 @@ class AuthController extends Controller
         ]);
 
         // Criação do token do usuário
-        $token = $user->createToken('primeirotoken')->plainTextToken;
+        //$token = $user->createToken('primeirotoken')->plainTextToken;
 
         // $response = [
         //     'user' => $user,
         //     'token' => $token
         // ];
 
-        return response([ 'user' => $user, 'access_token' => $token, 'message' => 'Register successfully'], 201);
+        // return response([ 'user' => $user, 'access_token' => $token, 'message' => 'Register successfully'], 201);
+        return response([ 'user' => $user], 201);
 
 
         return response($response, 201);

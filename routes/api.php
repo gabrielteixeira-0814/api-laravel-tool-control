@@ -61,14 +61,23 @@ Route::namespace('Api')->name('api.')->group(function(){
 
 
     Route::prefix('turns')->group(function () {
-        Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
-            Route::get('/', [TurnController::class, 'getList'])->name('getListTurns');
-            Route::get('/{id}', [TurnController::class, 'get'])->name('getTurns');
-            Route::post('/', [TurnController::class, 'store'])->name('postTurns');
-            Route::post('/{id}', [TurnController::class, 'update'])->name('putTurns');
-            Route::delete('/{id}', [TurnController::class, 'delete'])->name('deleteTurns');
-        });
+        Route::get('/', [TurnController::class, 'getList'])->name('getListTurns');
+        Route::get('/{id}', [TurnController::class, 'get'])->name('getTurns');
+        Route::post('/', [TurnController::class, 'store'])->name('postTurns');
+        Route::post('/{id}', [TurnController::class, 'update'])->name('putTurns');
+        Route::delete('/{id}', [TurnController::class, 'delete'])->name('deleteTurns');
     });
+
+
+    // Route::prefix('turns')->group(function () {
+    //     Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
+    //         Route::get('/', [TurnController::class, 'getList'])->name('getListTurns');
+    //         Route::get('/{id}', [TurnController::class, 'get'])->name('getTurns');
+    //         Route::post('/', [TurnController::class, 'store'])->name('postTurns');
+    //         Route::post('/{id}', [TurnController::class, 'update'])->name('putTurns');
+    //         Route::delete('/{id}', [TurnController::class, 'delete'])->name('deleteTurns');
+    //     });
+    // });
 
     Route::prefix('sector')->group(function () {
         Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){
@@ -90,15 +99,24 @@ Route::namespace('Api')->name('api.')->group(function(){
         });
     });
 
+    // Para Testes
     Route::prefix('user')->group(function() {
-        Route::group(['middleware' => ['auth:sanctum','role:Admin']], function(){
             Route::get('/', [UserController::class, 'getList'])->name('getListUser');
             Route::get('/{id}', [UserController::class, 'get'])->name('getUser');
             Route::post('/', [UserController::class, 'store'])->name('postUser');
             Route::post('/{id}', [UserController::class, 'update'])->name('putUser');
             Route::delete('/{id}', [UserController::class, 'delete'])->name('deleteUser');
-        });
     });
+
+    // Route::prefix('user')->group(function() {
+    //     Route::group(['middleware' => ['auth:sanctum','role:Admin']], function(){
+    //         Route::get('/', [UserController::class, 'getList'])->name('getListUser');
+    //         Route::get('/{id}', [UserController::class, 'get'])->name('getUser');
+    //         Route::post('/', [UserController::class, 'store'])->name('postUser');
+    //         Route::post('/{id}', [UserController::class, 'update'])->name('putUser');
+    //         Route::delete('/{id}', [UserController::class, 'delete'])->name('deleteUser');
+    //     });
+    // });
 
     Route::prefix('mark')->group(function() {
         Route::group(['middleware' => ['auth:sanctum','role:Admin|User']], function(){

@@ -53,22 +53,22 @@ class UserService
             'password_confirmation' => 'required|string|min:5|max:10',
             'cpf' => 'required|string|min:5|max:15',
             'matricula' => 'required|string|min:5|max:25',
-            'image' => 'image',
+            //'image' => 'image',
             'turn_id' => 'required',
             'office_id' => 'required',
             'sector_id' => 'required',
         ], $mensagens);
 
          
-        $file = $data['image'];
+        // $file = $data['image'];
 
-        if($file) {
-            $nameFile = $file->getClientOriginalName();
-            $file = $file->storeAs('users', $nameFile);
-            $data['image'] = $file;
-        }
+        // if($file) {
+        //     $nameFile = $file->getClientOriginalName();
+        //     $file = $file->storeAs('users', $nameFile);
+        //     $data['image'] = $file;
+        // }
 
-        return $this->repo->store($data); ///
+        return $this->repo->store($data); 
     }
 
     public function getList()
