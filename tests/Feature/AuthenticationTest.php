@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Illuminate\Testing\Fluent\AssertableJson;
 
-use App\User;
+use App\Models\User;
 use Tests\TestCase;
 
 
@@ -18,85 +18,88 @@ class AuthenticationTest extends TestCase
      *
      * @return void
      */
+    /**
+     * @test
+     * 
+     */
     
-    
-    
-    public function testIndexReturnsDataInValidFormat() {
+     /***  Verificar se o status é 200 quando  traz uma lista de usuários.  ***/ 
+     /***  Verificar se a estrutura da resposta em json é a correta. ***/ 
+    public function test_returns_a_list_of_users() {
     
         $this->json('GET', 'api/user/')
-             ->assertStatus(Response::HTTP_OK)
+             ->assertStatus(200)
              ->assertJsonStructure(
                  [
-                    
-                         '*' => [
-                             'id',
-                             'name',
-                             'email',
-                             'cpf',
-                             'email_verified_at',
-                             'matricula',
-                             'turn_id',
-                             'office_id',
-                             'sector_id',
-                             'created_at',
-                             'updated_at',
-                         ]
-                     
+                    '*' => [
+                        'id',
+                        'name',
+                        'email',
+                        'cpf',
+                        'email_verified_at',
+                        'matricula',
+                        'turn_id',
+                        'office_id',
+                        'sector_id',
+                        'created_at',
+                        'updated_at',
+                    ]
                  ]
              );
       }
+
     
-    
-     public function testRequiredFieldsForRegistration()
+      // Criar um usuário:
+      // Testa se o returno do status é (201)
+      // Testa se a estrutura do retorno do json é a correta
+      /**
+       * @
+       */
+    public function test_successful_create_user()
     {
-        $this->json('POST', 'api/register', ['Accept' => 'application/json'])
-            ->assertStatus(422)
-            ->assertJson([
-                "message" => "The name field is required. (and 8 more errors)",
-                "errors" => [
-                    "name" => ["The name field is required."],
-                    "email" => ["The email field is required."],
-                    "password" => ["The password field is required."],
-                    "password_confirmation" => ["The password confirmation field is required."],
-                    "cpf" => ["The cpf field is required."],
-                    "matricula" => ["The matricula field is required."],
-                    "turn_id" => ["The turn id field is required."],
-                    "office_id" => ["The office id field is required."],
-                    "sector_id" => ["The sector id field is required."],
-                ]
-            ]);
+
+        $user = [
+                "name" => "John Doeaaa", 
+                "email" => "doe@example.com",
+                "password" => "demo12345",
+                "password_confirmation" => "demo12345",
+                "cpf" => "12345657357",
+                "matricula" => "1234564387387",
+                "turn_id" => 1,
+                "office_id" => 1,
+                "sector_id" => 1,
+            ];
+            
+        $this->json('POST', 'api/user', $user)
+            ->assertStatus(201)
+            ->assertJsonStructure(
+                [
+                    'name',
+                    'email',
+                    'password',
+                    'cpf',
+                    'matricula',
+                    'turn_id' => [
+                        'id',
+                    ],
+                    'office_id' => [
+                        'id',
+                    ],
+                    'sector_id' => [
+                        'id',
+                    ],
+                    'created_at',
+                    'updated_at',
+                ]);
     }
 
-
-    public function testRepeatPassword()
-    {
+     // Retorna um status de criação (2021)
+     // Espera o retorno do json quando criar um usuário exatamente igual
+     public function test_user_create_api_request()
+     {
+ 
         $userData = [
-            "name" => "John Doe",
-            "email" => "doe@example.com",
-            "password" => "demo12345",
-            'cpf' => '23132151525',
-            'matricula' => '655616515151',
-            'turn_id' => 1,
-            'office_id' => 1,
-            'sector_id' => 1,
-        ];
-
-        $this->json('POST', 'api/register', $userData, ['Accept' => 'application/json'])
-            ->assertStatus(422)
-            ->assertJson([
-                "message" => "The password confirmation does not match. (and 1 more error)",
-                "errors" => [
-                    "password" => ["The password confirmation does not match."],
-                    "password_confirmation" => ["The password confirmation field is required."]
-                ]
-            ]);
-    }
-
-
-    public function testSuccessfulRegistration()
-    {
-        $userData = [
-            "name" => "John Doeaaa",
+            "name" => "John Doeaaa", 
             "email" => "doe@example.com",
             "password" => "demo12345",
             "password_confirmation" => "demo12345",
@@ -105,35 +108,56 @@ class AuthenticationTest extends TestCase
             "turn_id" => 1,
             "office_id" => 1,
             "sector_id" => 1,
-    ];
-            
+        ];
+ 
+         $response = $this->postJson('/api/user', $userData);
+  
+         $response
+             ->assertStatus(201)
+             ->assertJson([
+                "name" => "John Doeaaa", 
+                "email" => "doe@example.com",
+                "password" => "demo12345",
+                "password_confirmation" => "demo12345",
+                "cpf" => "12345657357",
+                "matricula" => "1234564387387",
+                "turn_id" => 1,
+                "office_id" => 1,
+                "sector_id" => 1,
+             ]);
+     }
 
-        //dd($userData);
 
-        $this->json('POST', 'api/user', $userData)
-            ->assertStatus(Response::HTTP_CREATED)
-            ->assertJsonStructure(
-                [
-                    'user' => [
-                        'name',
-                        'email',
-                        'password',
-                        'cpf',
-                        'matricula',
-                        'turn_id',
-                        'office_id',
-                        'sector_id',
-                        'created_at',
-                        'updated_at',
-                    ]
-                    //,
-                    // "access_token",
-                    // "message"
-                ]);
-    }
 
-    
-    // public function testSuccessfulRegistrationTurn()
+
+
+
+
+
+
+    // Espera o retorno do json quando criar um turno
+    // public function test_making_an_api_request()
+    // {
+
+    //     $turnData = [
+    //         "turn" => "primeiroasdsaa",
+    //         "codeTurn" => "sadasd651"
+    //     ];
+
+    //     $response = $this->postJson('/api/turns', $turnData);
+ 
+    //     $response
+    //         ->assertStatus(201)
+    //         ->assertJson([
+    //             "turn" => "primeiroasdsaa",
+    //             "codeTurn" => "sadasd651",
+    //             "status" => 0,
+    //         ]);
+    // }
+
+
+
+        // public function testSuccessfulRegistrationTurn()
     // {
     //     $turnData = [
     //         "turn" => "primeiroasdsaa",
@@ -155,26 +179,5 @@ class AuthenticationTest extends TestCase
     //             ]);
     // }
 
-
-
-    // Espera o retorno do json quando criar um turno
-    public function test_making_an_api_request()
-    {
-
-        $turnData = [
-            "turn" => "primeiroasdsaa",
-            "codeTurn" => "sadasd651"
-        ];
-
-        $response = $this->postJson('/api/turns', $turnData);
- 
-        $response
-            ->assertStatus(201)
-            ->assertJson([
-                "turn" => "primeiroasdsaa",
-                "codeTurn" => "sadasd651",
-                "status" => 0,
-            ]);
-    }
 
 }
