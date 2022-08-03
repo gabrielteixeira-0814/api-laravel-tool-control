@@ -73,11 +73,11 @@ class TurnTest extends TestCase
 
     // Criar um turno e retorna um resposta com status(200)
     // Busca um turno e pelo id criado com o turno e compara ser a resposta passada e igual 
-    public function testUserIsShownCorrectly() {
+    public function test_confirm_the_return_of_shift_details() {
 
         $turn = Turn::create(
             [
-                "turn" => "teste",
+                "turn" => "gabriel",
                 "codeTurn" => "564561561",
                 "status" => 0
             ]
@@ -85,15 +85,32 @@ class TurnTest extends TestCase
        
         $this->json('get', "api/turns/$turn->id")
             ->assertStatus(200)
-            ->assertExactJson(
+            ->assertJson(
                 [
+                    "turn" => "gabriel",
                     "codeTurn" => "564561561",
                     "status" => 0,
-                    "id" => 1,
-                    "turn"=> "teste",
                 ]
             );
     }
 
 
+    // Criar um turno
+    // Faz uma requisição delete passando i id do turno criado e retorna um resposta com status(200)
+    // Verifica se o turno esta ausente no banco de dados depois de deletar
+    public function test_turn_is_destroyed() {
+
+
+        $turnData = [
+                        "turn" => "gabriel",
+                        "codeTurn" => "564561561",
+                        "status" => 0,
+                    ];
+
+        $turn = Turn::create($turnData);
+        
+        $this->json('delete', "api/turns/$turn->id")
+             ->assertStatus(200);
+        $this->assertDatabaseMissing('turns', $turnData);
+    }
 }
