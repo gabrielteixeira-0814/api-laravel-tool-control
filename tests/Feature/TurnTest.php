@@ -19,7 +19,7 @@ class TurnTest extends TestCase
 
      // Rertona uma lista de turnos, com json com status (200).
      // Compara o retorno do json é igual o passado.
-    public function test_returns_user_list() 
+    public function test_returns_user_list()  // list
     {
     
         $this->json('get', 'api/turns')
@@ -40,7 +40,7 @@ class TurnTest extends TestCase
     // Criar um turno e retorna um status (201).
     // Criar um turno e compara com a estrutura correta.
     // Verifica e garantir que o turno exista no banco de dados.
-    public function test_create_user()
+    public function test_create_user() // create
     {
         $turn = [
             'turn' => 'primeiro',
@@ -73,11 +73,11 @@ class TurnTest extends TestCase
 
     // Criar um turno e retorna um resposta com status(200)
     // Busca um turno e pelo id criado com o turno e compara ser a resposta passada e igual 
-    public function test_confirm_the_return_of_shift_details() {
+    public function test_confirm_the_return_of_shift_details() { // show
 
         $turn = Turn::create(
             [
-                "turn" => "gabriel",
+                "turn" => "teste1",
                 "codeTurn" => "564561561",
                 "status" => 0
             ]
@@ -87,7 +87,7 @@ class TurnTest extends TestCase
             ->assertStatus(200)
             ->assertJson(
                 [
-                    "turn" => "gabriel",
+                    "turn" => "teste1",
                     "codeTurn" => "564561561",
                     "status" => 0,
                 ]
@@ -102,7 +102,7 @@ class TurnTest extends TestCase
 
 
         $turnData = [
-                        "turn" => "gabriel",
+                        "turn" => "teste1",
                         "codeTurn" => "564561561",
                         "status" => 0,
                     ];
@@ -112,5 +112,54 @@ class TurnTest extends TestCase
         $this->json('delete', "api/turns/$turn->id")
              ->assertStatus(200);
         $this->assertDatabaseMissing('turns', $turnData);
+    }
+
+
+    /*  
+        Criar um turno
+        Criar um turno para edição
+        Faz uma requisição editando passando o id do turno e os dados a ser editados, e
+        criando retorna uma resposta com status(200)
+        Verifica se os dados retornados sao iguais aos editados
+    */
+
+    public function test_update_user_returns_correct_data() {
+
+        // Atual
+        $turn = Turn::create(
+            [
+                "turn" => "teste1",
+                "codeTurn" => "564561561",
+                "status" => 0,
+            ]
+        );
+
+        // Novos dados
+        $turnUpdate = [
+            "turn" => "teste2",
+            "codeTurn" => "00000",
+            "status" => 1,
+        ];
+
+
+        $this->json('post', "api/turns/$turn->id", $turnUpdate)
+        ->assertStatus(200)
+        ->assertJson(
+            [
+                'id'         => $turn->id,
+                'turn'       => $turnUpdate['turn'],
+                'codeTurn'   => $turnUpdate['codeTurn'],
+                'status'     => 0,
+            ]
+        );
+    }
+
+    public function test_when_turn_does_not_exist() {
+
+        $this->json('get', "api/turns/0")
+        ->assertStatus(404)
+        ->assertJsonStructure([
+            "message" => "No query results for model [App\\Models\\Turn] 0"
+        ]);
     }
 }

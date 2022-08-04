@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Turn;
 
 class TurnRepositoryEloquent implements TurnRepositoryInterface
 {
@@ -28,9 +29,21 @@ class TurnRepositoryEloquent implements TurnRepositoryInterface
         return $this->model->findOrFail($id);
     }
 
-    public function update(array $data, $id)
+    public function update(array $data, $id, Exception $exception)
     {
-        return $this->model->find($id)->update($data);
+       
+
+        $this->isHttpException($exception);
+
+       if($this->model->find($id)->update($data)) {
+            $turn = Turn::where('id', $id)->first();
+            return $turn;
+
+       } else {
+            return "Error";
+       }
+
+      
     }
 
     public function destroy($id)
