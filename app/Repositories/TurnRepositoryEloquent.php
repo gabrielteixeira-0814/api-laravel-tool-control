@@ -16,7 +16,12 @@ class TurnRepositoryEloquent implements TurnRepositoryInterface
 
     public function store(array $data)
     {
-        return $this->model->create($data);
+        try{
+            return $this->model->create($data);
+
+           }catch(\Exception $e){
+             return "Error";
+           }
     }
 
     public function getList()

@@ -170,14 +170,15 @@ class TurnTest extends TestCase
     */
     public function test_store_with_missing_data() {
     
-        $payload = [
-            'first_name' => $this->faker->firstName,
-            'last_name'  => $this->faker->lastName
-            //email address is missing
+        $turn = [
+            "turn" => "teste2",
+            "codeTurn" => "",
+            "status" => 0,
         ];
-        $this->json('post', 'api/user', $payload)
-             ->assertStatus(Response::HTTP_BAD_REQUEST)
-             ->assertJsonStructure(['error']);
+
+        $this->json('post', 'api/turns', $turn)
+             ->assertStatus(500)
+             ->assertJson(['message' => 'Não foi possível criar o turno, verifique se todos os dados fora inserido corretamente!']);
     }
 
     /*
