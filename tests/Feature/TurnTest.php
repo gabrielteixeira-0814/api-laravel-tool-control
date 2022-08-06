@@ -154,6 +154,10 @@ class TurnTest extends TestCase
         );
     }
 
+
+
+    /********************* Teste com retornos com erros *********************/
+
      /*  
        Faz uma requisição de proucurar por um turno e retorna um erro 404 com uma mensagem  de error.
     */

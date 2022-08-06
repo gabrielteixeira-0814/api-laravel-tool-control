@@ -27,7 +27,7 @@ class AuthenticationTest extends TestCase
      /***  Verificar se a estrutura da resposta em json é a correta. ***/ 
     public function test_returns_a_list_of_users() {
     
-        $this->json('GET', 'api/user/')
+        $this->json('get', 'api/user/')
              ->assertStatus(200)
              ->assertJsonStructure(
                  [
@@ -39,7 +39,7 @@ class AuthenticationTest extends TestCase
                         'email_verified_at',
                         'matricula',
                         'turn_id',
-                        'office_id',
+                        'office_i',
                         'sector_id',
                         'created_at',
                         'updated_at',
@@ -70,26 +70,22 @@ class AuthenticationTest extends TestCase
                 "sector_id" => 1,
             ];
             
-        $this->json('POST', 'api/user', $user)
+        $this->json('post', 'api/register', $user)
             ->assertStatus(201)
-            ->assertJsonStructure(
+            ->assertJson(
                 [
-                    'name',
-                    'email',
-                    'password',
-                    'cpf',
-                    'matricula',
-                    'turn_id' => [
-                        'id',
+                    "user" => [
+                        "name" => "John Doeaaa", 
+                        "email" => "doe@example.com",
+                        "password" => "demo12345",
+                        "password_confirmation" => "demo12345",
+                        "cpf" => "12345657357",
+                        "matricula" => "1234564387387",
+                        "turn_id" => 1,
+                        "office_id" => 1,
+                        "sector_id" => 1,
                     ],
-                    'office_id' => [
-                        'id',
-                    ],
-                    'sector_id' => [
-                        'id',
-                    ],
-                    'created_at',
-                    'updated_at',
+                    "token" => ""
                 ]);
     }
 
@@ -126,58 +122,6 @@ class AuthenticationTest extends TestCase
                 "sector_id" => 1,
              ]);
      }
-
-
-
-
-
-
-
-
-
-    // Espera o retorno do json quando criar um turno
-    // public function test_making_an_api_request()
-    // {
-
-    //     $turnData = [
-    //         "turn" => "primeiroasdsaa",
-    //         "codeTurn" => "sadasd651"
-    //     ];
-
-    //     $response = $this->postJson('/api/turns', $turnData);
- 
-    //     $response
-    //         ->assertStatus(201)
-    //         ->assertJson([
-    //             "turn" => "primeiroasdsaa",
-    //             "codeTurn" => "sadasd651",
-    //             "status" => 0,
-    //         ]);
-    // }
-
-
-
-        // public function testSuccessfulRegistrationTurn()
-    // {
-    //     $turnData = [
-    //         "turn" => "primeiroasdsaa",
-    //         "codeTurn" => "sadasd651"
-    // ];
-            
-
-    //     //dd($turnData);
-
-    //     $this->json('POST', 'api/turns', $turnData)
-    //         ->assertStatus(Response::HTTP_CREATED)
-    //         ->assertJsonStructure(
-    //             [
-    //                 'turn',
-    //                 'codeTurn',
-    //                 'status',
-    //                 'created_at',
-    //                 'updated_at',
-    //             ]);
-    // }
 
 
 }
