@@ -43,6 +43,13 @@ class TurnService
 
     public function get($id)
     {
+        $data = $this->repo->get($id);
+        if(!$data) {
+            return response()->json([
+                'message'   => 'Record not found',
+            ], 404);
+        }
+
         return $this->repo->get($id);
     }
 
@@ -63,12 +70,33 @@ class TurnService
             'codeTurn' => 'required|string|min:5|max:100',
         ], $mensagens);
 
-        return $this->repo->update($data, $id);
+        $dataUpdate = $this->repo->get($id);
+
+        if(!$dataUpdate) {
+            return response()->json([
+                'message'   => 'Record not found for update',
+            ], 404);
+        }
+
+        if($this->repo->update($data, $id)){
+            return $dataUpdate;
+        }
     }
 
     public function destroy($id)
     {
-        return $this->repo->destroy($id);
+
+        $dataDelete = $this->repo->get($id);
+
+        if(!$dataDelete){
+            return response()->json([
+                'message' => 'Record not found for delete',
+            ], 404);
+        }
+        
+        if($this->repo->destroy($id)){
+            return $dataDelete;
+        }
     }
 }
 

@@ -26,24 +26,12 @@ class TurnRepositoryEloquent implements TurnRepositoryInterface
 
     public function get($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->find($id);
     }
 
-    public function update(array $data, $id, Exception $exception)
+    public function update(array $data, $id)
     {
-       
-
-        $this->isHttpException($exception);
-
-       if($this->model->find($id)->update($data)) {
-            $turn = Turn::where('id', $id)->first();
-            return $turn;
-
-       } else {
-            return "Error";
-       }
-
-      
+        return $this->model->find($id)->update($data);
     }
 
     public function destroy($id)

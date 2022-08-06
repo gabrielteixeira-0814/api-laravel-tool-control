@@ -154,12 +154,57 @@ class TurnTest extends TestCase
         );
     }
 
+     /*  
+       Faz uma requisição de proucurar por um turno e retorna um erro 404 com uma mensagem  de error.
+    */
     public function test_when_turn_does_not_exist() {
 
         $this->json('get', "api/turns/0")
         ->assertStatus(404)
-        ->assertJsonStructure([
-            "message" => "No query results for model [App\\Models\\Turn] 0"
-        ]);
+        ->assertJson(['message' => 'Record not found']);
+    }
+
+    /*
+        Faz uma requesicao de create mas retorna um erro 400 que não foi registrado os dados
+        com uma mensagem de error.
+    */
+    public function test_store_with_missing_data() {
+    
+        $payload = [
+            'first_name' => $this->faker->firstName,
+            'last_name'  => $this->faker->lastName
+            //email address is missing
+        ];
+        $this->json('post', 'api/user', $payload)
+             ->assertStatus(Response::HTTP_BAD_REQUEST)
+             ->assertJsonStructure(['error']);
+    }
+
+    /*
+        Faz uma requesicao de update mas retorna um erro 404 que não foi encontrado registro
+        selecionado para edicão com uma mensagem de error.
+    */
+    public function test_when_turn_does_not_exist_for_update() {
+
+        $turnUpdate = [
+            "turn" => "teste2",
+            "codeTurn" => "00000",
+            "status" => 1,
+        ];
+
+        $this->json('post', 'api/turns/0', $turnUpdate)
+         ->assertStatus(404)
+         ->assertJson(['message' => 'Record not found for update']);
+    }
+
+    /*
+        Faz uma requisição delete mas retorna status 404 onde não foi encontrado o registro 
+        selecionado para excluir, e retornar uma mensagem de error
+    */
+    public function test_destroy_for_missing_turn() {
+    
+        $this->json('delete', 'api/turns/0')
+             ->assertStatus(404)
+             ->assertJson(['message' => 'Record not found for delete']);
     }
 }
