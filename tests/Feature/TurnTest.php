@@ -17,6 +17,22 @@ class TurnTest extends TestCase
      * @return void
      */
 
+
+    /* Teste obrigatórios para inserir os registros do turno */
+    public function test_required_fields_for_registration()
+    {
+        $this->json('post', 'api/turns')
+            ->assertStatus(422)
+            ->assertJson([
+                "message" => "O nome do turno é obrigatório! (and 1 more error)",
+                "errors" => [
+                    "turn" => ["O nome do turno é obrigatório!"],
+                    "codeTurn" => ["O código do turno é obrigatório!"],
+                ]
+            ]);
+    }
+
+
      // Rertona uma lista de turnos, com json com status (200).
      // Compara o retorno do json é igual o passado.
     public function test_returns_user_list()  // list

@@ -26,26 +26,26 @@ class TurnService
             'codeTurn.max' => 'É necessário no Máximo 100 caracteres no código!',
         ];
 
-        // $data = $request->validate([
-        //     'turn' => 'required|string|min:5|max:255',
-        //     'codeTurn' => 'required|string|min:5|max:100',
-        // ], $mensagens);
+        $data = $request->validate([
+            'turn' => 'required|string|min:5|max:255',
+            'codeTurn' => 'required|string|min:5|max:100',
+        ], $mensagens);
 
         $data['status'] = 0;
 
         // Criado para usar no teste
-        $data = $request->validate([
+       /*** $data = $request->validate([
             'turn' => '',
             'codeTurn' => '',
         ], $mensagens);
-
-       
 
         if($this->repo->store($data) == "Error") {
             return response()->json([
                 'message'   => 'Não foi possível criar o turno, verifique se todos os dados fora inserido corretamente!',
             ], 500);
-        }
+        } ***/
+
+
         return $this->repo->store($data);
     }
 
