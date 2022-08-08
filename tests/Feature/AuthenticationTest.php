@@ -23,6 +23,28 @@ class AuthenticationTest extends TestCase
      * 
      */
     
+
+    public function test_Required_Fields_For_Registration_users()
+    {
+        $this->json('post', 'api/register',)
+            ->assertStatus(422)
+            ->assertJson([
+                "message" => "The name field is required. (and 8 more errors)",
+                "errors" => [
+                    "name" => ["The name field is required."],
+                    "email" => ["The email field is required."],
+                    "password" => ["The password field is required."],
+                    "password_confirmation" => ["The password confirmation field is required."],
+                    "cpf" => ["The cpf field is required."],
+                    "matricula" => ["The matricula field is required."],
+                    "turn_id" => ["The turn id field is required."],
+                    "office_id" => ["The office id field is required."],
+                    "sector_id" => ["The sector id field is required."]
+                ]
+            ]);
+    }
+
+
      /***  Verificar se o status é 200 quando  traz uma lista de usuários.  ***/ 
      /***  Verificar se a estrutura da resposta em json é a correta. ***/ 
     public function test_returns_a_list_of_users() {
