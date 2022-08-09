@@ -7,9 +7,12 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Illuminate\Testing\Fluent\AssertableJson;
 
-use App\Models\User;
 use Tests\TestCase;
 
+use App\Models\User;
+use App\Models\Turn;
+use App\Models\Office;
+use App\Models\Sector;
 
 class AuthenticationTest extends TestCase
 {
@@ -24,6 +27,7 @@ class AuthenticationTest extends TestCase
      */
     
 
+     /* Teste que retornar as mensagem de erros quando o usuario nao passa os valores corretos para os campos */
     public function test_Required_Fields_For_Registration_users()
     {
         $this->json('post', 'api/register',)
@@ -43,6 +47,113 @@ class AuthenticationTest extends TestCase
                 ]
             ]);
     }
+
+
+    /* Teste onde precisa repetir a senha novamente e é passado uma senha diferente da confirmação */
+    public function test_Repeat_password()
+    {
+        $userData = [
+            "name" => "John Doe",
+            "email" => "doe@example.com",
+            "password" => "demo12345",
+            "password_confirmation" => "demo123",
+            "cpf" => "00000000101",
+            "matricula" => "00000100",
+            "turn_id" => "1",
+            "office_id" => "1",
+            "sector_id" => "1",
+        ];
+
+        $this->json('post', 'api/register', $userData)
+            ->assertStatus(422)
+            ->assertJson([
+                "message" => "The password confirmation does not match.",
+                "errors" => [
+                    "password" => ["The password confirmation does not match."]
+                ]
+            ]);
+    }
+
+    /* Testa a criação de um registro de usuário */
+    public function test_successful_registration()
+    {
+        $turnId = Turn::create(
+            [
+                'turn' => 'primeiro',
+                'codeTurn' => '0010000',
+                'status' => 0
+            ]
+        );
+
+        $officeId = Office::create(
+            [
+                'office' => 'Analista',
+                'codeOffice' => '0010000',
+                'status' => 0
+            ]
+        );
+
+        $sectorId = Sector::create(
+            [
+                'sector' => 'Logistica',
+                'codeSector' => '0010000',
+                'status' => 0
+            ]
+        );
+
+        // $user = User::create(
+        //    [
+        //         "name" => "John Doe",
+        //         "email" => "doe@example.com",
+        //         "password" => "demo12345",
+        //         "password_confirmation" => "demo12345",
+        //         "cpf" => "00000000101",
+        //         "matricula" => "00000100",
+        //         "turn_id" => $turnId->id,
+        //         "office_id" => $officeId->id,
+        //         "sector_id" => $sectorId->id,
+        //     ]
+        // );
+
+
+        $userData =
+            [
+                "name" => "John Doe",
+                "email" => "doe@example.com",
+                "password" => "demo12345",
+                "password_confirmation" => "demo12345",
+                "cpf" => "00000000101",
+                "matricula" => "00000100",
+                "turn_id" => $turnId->id,
+                "office_id" => $officeId->id,
+                "sector_id" => $sectorId->id,
+             ];
+        
+        // dd($userData);
+
+        $this->json('post', 'api/register', $userData)
+            ->assertStatus(201)
+            ->assertJsonStructure([
+                "user" => [
+                    'id',
+                    'name',
+                    'email',
+                    'matricula',
+                    'turn_id',
+                    'office_id',
+                    'sector_id',
+                    'created_at',
+                    'updated_at',
+                ],
+                "token"
+            ]);
+    }
+
+
+
+
+
+
 
 
      /***  Verificar se o status é 200 quando  traz uma lista de usuários.  ***/ 

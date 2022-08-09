@@ -56,15 +56,14 @@ class TurnTest extends TestCase
     // Criar um turno e retorna um status (201).
     // Criar um turno e compara com a estrutura correta.
     // Verifica e garantir que o turno exista no banco de dados.
-    public function test_create_user() // create
+    public function test_create_turn() // create
     {
         $turn = [
             'turn' => 'primeiro',
             'codeTurn' => '564561561'
-            //'status' => $this->faker->email
         ];
 
-       // dd($turn);
+       dd($turn);
 
         $this->json('post', 'api/turns', $turn)
              ->assertStatus(201)
