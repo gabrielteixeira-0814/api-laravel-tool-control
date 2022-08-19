@@ -117,8 +117,6 @@ class AuthenticationTest extends TestCase
                ],
                "tokenn"
             ]);
-
-        $this->assertAuthenticated($userData);
     }
 
 
@@ -201,7 +199,6 @@ class AuthenticationTest extends TestCase
             ]
         );
 
-    
         $userData =
             [
                 "name" => "John Doe",
@@ -215,7 +212,7 @@ class AuthenticationTest extends TestCase
                 "sector_id" => $sectorId->id,
              ];
         
-        // dd($userData);
+        //$this->actingAs($userData, 'api');
 
         $this->json('post', 'api/register', $userData)
             ->assertStatus(201)

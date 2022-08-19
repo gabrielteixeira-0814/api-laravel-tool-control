@@ -7,7 +7,10 @@ namespace Tests\Feature;
 
 use Illuminate\Http\Response;
 use Tests\TestCase;
+
 use App\Models\Turn;
+use App\Models\Office;
+use App\Models\Sector;
 
 class TurnTest extends TestCase
 {
@@ -58,12 +61,11 @@ class TurnTest extends TestCase
     // Verifica e garantir que o turno exista no banco de dados.
     public function test_create_turn() // create
     {
+        
         $turn = [
             'turn' => 'primeiro',
             'codeTurn' => '564561561'
         ];
-
-       dd($turn);
 
         $this->json('post', 'api/turns', $turn)
              ->assertStatus(201)
