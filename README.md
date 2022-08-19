@@ -58,7 +58,7 @@ You must have [Docker](https://docs.docker.com/desktop/windows/install/) install
 
 ## 📝 License
 
-This project is under the MIT license. See the file <a href="https://github.com/gabrielteixeira-0814/api-laravel-product/blob/main/LICENCE">LICENCE</a> for more details.
+This project is under the MIT license. See the file <a href="https://github.com/gabrielteixeira-0814/api-laravel-tool-control/blob/main/LICENCE">LICENCE</a> for more details.
 
 ---
 
